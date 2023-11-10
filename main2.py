@@ -26,6 +26,6 @@ def get_directory_contents(base_url): #username, repo_name, path, branch='master
 url = 'https://github.com/Shubham11git/FaceRecognitionProject/tree/main/images'
 contents = get_directory_contents(url)
 
-if contents:
-    for item in contents:
-        st.write(item.split('.')[0])
+# if contents:
+#     for item in contents:
+#         st.write(item.split('.')[0])
