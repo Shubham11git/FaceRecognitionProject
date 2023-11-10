@@ -7,7 +7,7 @@ import tempfile
 
 import requests
 
-def get_directory_contents(username, repo_name, path, branch='master'):
+def get_directory_contents(username, repo_name, path, branch='main'):
     base_url = f'https://api.github.com/repos/{username}/{repo_name}/contents/{path}?ref={branch}'
     response = requests.get(base_url)
 
