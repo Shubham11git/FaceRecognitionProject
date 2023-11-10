@@ -18,7 +18,7 @@ def get_directory_contents(username, repo_name, path, branch='master'):
         st.write(f"Failed to retrieve directory contents. Status code: {response.status_code}")
         return None
 
-Replace these with your GitHub username, repository name, and directory path
+# Replace these with your GitHub username, repository name, and directory path
 username = 'Shubham11git'
 repo_name = 'FaceRecognitionProject'
 directory_path = 'images'
