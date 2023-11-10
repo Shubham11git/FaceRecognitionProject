@@ -28,4 +28,4 @@ contents = get_directory_contents(url)
 
 if contents:
     for item in contents:
-        st.write(f"Name: {item['name']}, Type: {item['type']}")
+        st.write(item.split('.')[0])
