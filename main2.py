@@ -28,4 +28,4 @@ contents = get_directory_contents(username, repo_name, directory_path)
 
 if contents:
     for item in contents:
-        st.write(item.split('.')[0])
+        st.write(f"Name: {item['name']}, Type: {item['type']}")
