@@ -2,23 +2,41 @@ import face_recognition
 import cv2
 import numpy as np
 import streamlit as st
-import os
-import tempfile
+# import os
+# import tempfile
+
+from main2 import *
 
 st.title('Face Recognition')
+
+username = 'Shubham11git'
+repo_name = 'FaceRecognitionProject'
+directory_path = 'images'
+
+contents = get_directory_contents(username, repo_name, directory_path)
 
 known_face_encodings = []
 known_face_names = []
 
-known_image_dir = 'images'
+if contents:
+    for item in contents:
+        st.write(item.split('.')[0])
+        image = face_recognition.load_image_file(item)
+        image_encoding = face_recognition.face_encodings(image)[0]
+        image_name = item.split('.')[0]
 
-for file in os.listdir(known_image_dir):
-    image = face_recognition.load_image_file(known_image_dir + '/' + file)
-    image_encoding = face_recognition.face_encodings(image)[0]
-    image_name = file.split('.')[0]
+        known_face_encodings.append(image_encoding)
+        known_face_names.append(image_name)
 
-    known_face_encodings.append(image_encoding)
-    known_face_names.append(image_name)
+# known_image_dir = 'images'
+
+# for file in os.listdir(known_image_dir):
+#     image = face_recognition.load_image_file(known_image_dir + '/' + file)
+#     image_encoding = face_recognition.face_encodings(image)[0]
+#     image_name = file.split('.')[0]
+
+#     known_face_encodings.append(image_encoding)
+#     known_face_names.append(image_name)
 
 cap = cv2.VideoCapture(0)
 
