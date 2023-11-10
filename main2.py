@@ -17,8 +17,12 @@ username = 'Shubham11git'
 repo_name = 'FaceRecognitionProject'
 directory_path = 'images'
 
+<<<<<<< HEAD
+=======
+# url = 'https://github.com/Shubham11git/FaceRecognitionProject/tree/main/images'
+>>>>>>> c62e369c27f578c55aaa9c83b85acc21f454863b
 contents = get_directory_contents(username, repo_name, directory_path)
 
 if contents:
     for item in contents:
-        st.write(item.split('.')[0])
+        st.write(f"Name: {item['name'].split('.')[0]}, Type: {item['type']}")
