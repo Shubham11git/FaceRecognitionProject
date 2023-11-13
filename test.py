@@ -1,4 +1,5 @@
 import requests
+import streamlit as st
 
 def get_image_urls(username, repo_name, path, branch='main'):
     base_url = f'https://api.github.com/repos/{username}/{repo_name}/contents/{path}?ref={branch}'
@@ -25,4 +26,4 @@ image_urls = get_image_urls(username, repo_name, directory_path)
 
 if image_urls:
     for url in image_urls:
-        print(f"Image URL: {url}")
+        st.write(f"Image URL: {url}")
