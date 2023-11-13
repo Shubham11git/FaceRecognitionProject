@@ -1,35 +1,28 @@
 import requests
-import os
 
-def download_file(url, destination):
-    response = requests.get(url)
-    if response.status_code == 200:
-        with open(destination, 'wb') as file:
-            file.write(response.content)
-        print(f"Downloaded: {destination}")
-    else:
-        print(f"Failed to download file. Status code: {response.status_code}")
-
-def download_images(username, repo_name, path, branch='main'):
+def get_image_urls(username, repo_name, path, branch='main'):
     base_url = f'https://api.github.com/repos/{username}/{repo_name}/contents/{path}?ref={branch}'
     response = requests.get(base_url)
 
     if response.status_code == 200:
         contents = response.json()
+        image_urls = []
         for item in contents:
             if item['type'] == 'file' and item['name'].lower().endswith(('.png', '.jpg', '.jpeg', '.gif')):
-                download_url = item['download_url']
-                destination = os.path.join('downloaded_images', item['name'])
-                download_file(download_url, destination)
+                raw_url = item['download_url'].replace('/downloads/', '/raw/')  # Convert download_url to raw_url
+                image_urls.append(raw_url)
+        return image_urls
     else:
         print(f"Failed to retrieve directory contents. Status code: {response.status_code}")
+        return None
 
 # Replace these with your GitHub username, repository name, and directory path
 username = 'Shubham11git'
 repo_name = 'FaceRecognitionProject'
 directory_path = 'images'
 
-# Create a directory to store the downloaded images
-os.makedirs('downloaded_images', exist_ok=True)
+image_urls = get_image_urls(username, repo_name, directory_path)
 
-download_images(username, repo_name, directory_path)
+if image_urls:
+    for url in image_urls:
+        print(f"Image URL: {url}")
