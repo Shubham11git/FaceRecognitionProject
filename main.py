@@ -5,102 +5,106 @@ import streamlit as st
 # import os
 # import tempfile
 
-from main2 import *
+import sys
 
-st.title('Face Recognition')
+st.write(sys.path)
 
-username = 'Shubham11git'
-repo_name = 'FaceRecognitionProject'
-directory_path = 'images'
+# from main2 import *
 
-names = get_image_names(username, repo_name, directory_path)
+# st.title('Face Recognition')
 
-image_urls = get_image_urls(username, repo_name, directory_path)
+# username = 'Shubham11git'
+# repo_name = 'FaceRecognitionProject'
+# directory_path = 'images'
 
-known_face_encodings = []
-known_face_names = []
+# names = get_image_names(username, repo_name, directory_path)
 
-if names:
-    for item, url in names, image_urls:
-        # st.write(item.split('.')[0])
-        # # print(item)
-        image = face_recognition.load_image_file(url)
-        image_encoding = face_recognition.face_encodings(image)[0]
-        image_name = item['name'].split('.')[0]
+# image_urls = get_image_urls(username, repo_name, directory_path)
 
-        known_face_encodings.append(image_encoding)
-        known_face_names.append(image_name)
+# known_face_encodings = []
+# known_face_names = []
 
-# print(known_face_names)
+# if names:
+#     for item, url in names, image_urls:
+#         # st.write(item.split('.')[0])
+#         # # print(item)
+#         image = face_recognition.load_image_file(url)
+#         image_encoding = face_recognition.face_encodings(image)[0]
+#         image_name = item['name'].split('.')[0]
 
-# known_image_dir = 'images'
+#         known_face_encodings.append(image_encoding)
+#         known_face_names.append(image_name)
 
-# for file in os.listdir(known_image_dir):
-#     image = face_recognition.load_image_file(known_image_dir + '/' + file)
-#     image_encoding = face_recognition.face_encodings(image)[0]
-#     image_name = file.split('.')[0]
+# # print(known_face_names)
 
-#     known_face_encodings.append(image_encoding)
-#     known_face_names.append(image_name)
+# # known_image_dir = 'images'
 
-cap = cv2.VideoCapture(0)
+# # for file in os.listdir(known_image_dir):
+# #     image = face_recognition.load_image_file(known_image_dir + '/' + file)
+# #     image_encoding = face_recognition.face_encodings(image)[0]
+# #     image_name = file.split('.')[0]
 
-frame_placeholder = st.empty()
-stop_button_pressed = st.button('Stop')
+# #     known_face_encodings.append(image_encoding)
+# #     known_face_names.append(image_name)
 
-process_frame = True
+# cap = cv2.VideoCapture(0)
 
-while cap.isOpened() and not stop_button_pressed:
-    ret, frame = cap.read()
+# frame_placeholder = st.empty()
+# stop_button_pressed = st.button('Stop')
 
-    if process_frame:
-        small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
-        rgb_small_frame = cv2.cvtColor(small_frame, cv2.COLOR_BGR2RGB)
+# process_frame = True
+
+# while cap.isOpened() and not stop_button_pressed:
+#     ret, frame = cap.read()
+
+#     if process_frame:
+#         small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
+#         rgb_small_frame = cv2.cvtColor(small_frame, cv2.COLOR_BGR2RGB)
 
     
-        face_location = face_recognition.face_locations(rgb_small_frame)
-        rgb_frame_encoding = face_recognition.face_encodings(rgb_small_frame, face_location)
+#         face_location = face_recognition.face_locations(rgb_small_frame)
+#         rgb_frame_encoding = face_recognition.face_encodings(rgb_small_frame, face_location)
     
-        name_list = []
+#         name_list = []
 
-        for face_encoding in rgb_frame_encoding:
-            match = face_recognition.compare_faces(known_face_encodings, face_encoding)
+#         for face_encoding in rgb_frame_encoding:
+#             match = face_recognition.compare_faces(known_face_encodings, face_encoding)
             
-            name = 'Unknown'
+#             name = 'Unknown'
 
-            if True in match:
-                index = match.index(True)
-                name = known_face_names[index]
+#             if True in match:
+#                 index = match.index(True)
+#                 name = known_face_names[index]
 
-            name_list.append(name)
+#             name_list.append(name)
 
-    for (top, right, bottom, left), name in zip(face_location, name_list):
-        top *= 4
-        right *= 4
-        bottom *= 4
-        left *= 4
+#     for (top, right, bottom, left), name in zip(face_location, name_list):
+#         top *= 4
+#         right *= 4
+#         bottom *= 4
+#         left *= 4
         
-        if name == 'Unknown':
-            cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
-            font = cv2.FONT_HERSHEY_DUPLEX
-            cv2.putText(frame, name, (left, bottom + 20), font, 0.5, (255, 255, 255), 1)
-        else:
-            cv2.rectangle(frame, (left, top), (right, bottom), (0, 255, 0), 2)
-            font = cv2.FONT_HERSHEY_DUPLEX
-            cv2.putText(frame, name, (left, bottom + 20), font, 0.5, (255, 255, 255), 1)
+#         if name == 'Unknown':
+#             cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
+#             font = cv2.FONT_HERSHEY_DUPLEX
+#             cv2.putText(frame, name, (left, bottom + 20), font, 0.5, (255, 255, 255), 1)
+#         else:
+#             cv2.rectangle(frame, (left, top), (right, bottom), (0, 255, 0), 2)
+#             font = cv2.FONT_HERSHEY_DUPLEX
+#             cv2.putText(frame, name, (left, bottom + 20), font, 0.5, (255, 255, 255), 1)
 
-    process_frame = not process_frame
+#     process_frame = not process_frame
 
-    # cv2.imshow('Face', frame)
+#     # cv2.imshow('Face', frame)
 
-    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+#     frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
-    frame_placeholder.image(frame, channels='RGB')
+#     frame_placeholder.image(frame, channels='RGB')
     
-    if cv2.waitKey(1) & 0xFF == ord('q') or stop_button_pressed:
-        break
+#     if cv2.waitKey(1) & 0xFF == ord('q') or stop_button_pressed:
+#         break
 
 
-cap.release()
-cv2.destroyAllWindows()
+# cap.release()
+# cv2.destroyAllWindows()
 
