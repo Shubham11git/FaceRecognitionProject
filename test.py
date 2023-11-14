@@ -1,29 +1,29 @@
-import requests
 import streamlit as st
+from streamlit_webrtc import webrtc_streamer, VideoTransformerBase
 
-def get_image_urls(username, repo_name, path, branch='main'):
-    base_url = f'https://api.github.com/repos/{username}/{repo_name}/contents/{path}?ref={branch}'
-    response = requests.get(base_url)
+class VideoTransformer(VideoTransformerBase):
+    def __init__(self):
+        # Define any initialization code here
+        pass
 
-    if response.status_code == 200:
-        contents = response.json()
-        image_urls = []
-        for item in contents:
-            if item['type'] == 'file' and item['name'].lower().endswith(('.png', '.jpg', '.jpeg', '.gif')):
-                raw_url = item['download_url'].replace('/downloads/', '/raw/')  # Convert download_url to raw_url
-                image_urls.append(raw_url)
-        return image_urls
-    else:
-        print(f"Failed to retrieve directory contents. Status code: {response.status_code}")
-        return None
+    def transform(self, frame):
+        # Process the frame (e.g., apply filters, perform analysis)
+        # In this example, we simply return the frame without any processing
+        return frame
 
-# Replace these with your GitHub username, repository name, and directory path
-username = 'Shubham11git'
-repo_name = 'FaceRecognitionProject'
-directory_path = 'images'
+def main():
+    st.title("Webcam with Streamlit WebRTC")
 
-image_urls = get_image_urls(username, repo_name, directory_path)
+    # Create a WebRTC component with the VideoTransformer class
+    webrtc_ctx = webrtc_streamer(
+        key="example",
+        video_transformer_factory=VideoTransformer,
+        async_transform=True,
+    )
 
-if image_urls:
-    for url in image_urls:
-        st.write(f"Image URL: {url}")
+    # Display the webcam feed
+    if webrtc_ctx.video_transformer:
+        st.video(webrtc_ctx.video_transformer)
+
+if __name__ == "__main__":
+    main()
