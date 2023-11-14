@@ -18,7 +18,7 @@ def main():
     webrtc_ctx = webrtc_streamer(
         key="example",
         video_processor_factory=VideoProcessor,
-        async_process=True,
+        async_processing=True,
     )
 
     # Display the webcam feed
