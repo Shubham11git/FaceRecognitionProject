@@ -19,6 +19,9 @@ webrtc_ctx = webrtc_streamer(
         key="sample",
         # video_processor_factory=VideoProcessor,
         # async_processing=True,
+        rtc_configuration={  # Add this config
+        "iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]
+    }
     )
 
     # Display the webcam feed
