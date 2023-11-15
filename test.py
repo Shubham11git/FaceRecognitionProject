@@ -16,7 +16,7 @@ st.title("Webcam with Streamlit WebRTC")
 
     # Create a WebRTC component with the VideoTransformer class
 webrtc_ctx = webrtc_streamer(
-        key="example",
+        key="sample",
         # video_processor_factory=VideoProcessor,
         # async_processing=True,
     )
