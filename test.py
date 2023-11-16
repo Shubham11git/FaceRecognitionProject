@@ -6,6 +6,7 @@ import cv2
 import numpy as np
 import streamlit as st
 import os
+import av
 
 
 
@@ -16,7 +17,7 @@ class VideoProcessor(VideoProcessorBase):
             pass
     
     
-    def process(self, frame):
+    def recv(self, frame):
         # Process the frame (e.g., apply filters, perform analysis)
         known_face_encodings = []
         known_face_names = []
