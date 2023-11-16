@@ -31,7 +31,9 @@ class VideoProcessor(VideoProcessorBase):
             known_face_encodings.append(image_encoding)
             known_face_names.append(image_name)
 
-        small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
+        img = frame.to_ndarray(format='bgr24')
+
+        small_frame = cv2.resize(img, (0, 0), fx=0.25, fy=0.25)
         rgb_small_frame = cv2.cvtColor(small_frame, cv2.COLOR_BGR2RGB)
 
     
@@ -58,15 +60,15 @@ class VideoProcessor(VideoProcessorBase):
             left *= 4
         
             if name == 'Unknown':
-                cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
+                cv2.rectangle(img, (left, top), (right, bottom), (0, 0, 255), 2)
                 font = cv2.FONT_HERSHEY_DUPLEX
-                cv2.putText(frame, name, (left, bottom + 20), font, 0.5, (255, 255, 255), 1)
+                cv2.putText(img, name, (left, bottom + 20), font, 0.5, (255, 255, 255), 1)
             else:
-                cv2.rectangle(frame, (left, top), (right, bottom), (0, 255, 0), 2)
+                cv2.rectangle(img, (left, top), (right, bottom), (0, 255, 0), 2)
                 font = cv2.FONT_HERSHEY_DUPLEX
-                cv2.putText(frame, name, (left, bottom + 20), font, 0.5, (255, 255, 255), 1)
+                cv2.putText(img, name, (left, bottom + 20), font, 0.5, (255, 255, 255), 1)
             # In this example, we simply return the frame without any processing
-        return frame
+        return av.VideoFrame.from_ndarray(img, format='bgr24')
 
 def main():
 
