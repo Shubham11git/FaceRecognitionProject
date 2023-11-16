@@ -16,8 +16,20 @@ class VideoProcessor(VideoProcessorBase):
             pass
     
     
-    def process(self, frame, known_face_encodings, known_face_names):
+    def process(self, frame):
         # Process the frame (e.g., apply filters, perform analysis)
+        known_face_encodings = []
+        known_face_names = []
+
+        known_image_dir = 'images'
+
+        for file in os.listdir(known_image_dir):
+            image = face_recognition.load_image_file(known_image_dir + '/' + file)
+            image_encoding = face_recognition.face_encodings(image)[0]
+            image_name = file.split('.')[0]
+            known_face_encodings.append(image_encoding)
+            known_face_names.append(image_name)
+
         small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
         rgb_small_frame = cv2.cvtColor(small_frame, cv2.COLOR_BGR2RGB)
 
@@ -57,17 +69,7 @@ class VideoProcessor(VideoProcessorBase):
 
 def main():
 
-    known_face_encodings = []
-    known_face_names = []
-
-    known_image_dir = 'images'
-
-    for file in os.listdir(known_image_dir):
-        image = face_recognition.load_image_file(known_image_dir + '/' + file)
-        image_encoding = face_recognition.face_encodings(image)[0]
-        image_name = file.split('.')[0]
-        known_face_encodings.append(image_encoding)
-        known_face_names.append(image_name)
+    
 
     st.title("Webcam with Streamlit WebRTC")
 
