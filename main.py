@@ -7,29 +7,8 @@ import tempfile
 
 st.title('Face Recognition')
 
-# username = 'Shubham11git'
-# repo_name = 'FaceRecognitionProject'
-# directory_path = 'images'
-
-# names = get_image_names(username, repo_name, directory_path)
-
-# image_urls = get_image_urls(username, repo_name, directory_path)
-
 known_face_encodings = []
 known_face_names = []
-
-# if names:
-#     for item, url in names, image_urls:
-#         # st.write(item.split('.')[0])
-#         # # print(item)
-#         image = face_recognition.load_image_file(url)
-#         image_encoding = face_recognition.face_encodings(image)[0]
-#         image_name = item['name'].split('.')[0]
-
-#         known_face_encodings.append(image_encoding)
-#         known_face_names.append(image_name)
-
-# # print(known_face_names)
 
 known_image_dir = 'images'
 
