@@ -87,5 +87,5 @@ def main():
     if webrtc_ctx.video_processor:
         st.video(webrtc_ctx.video_processor)
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+main()
