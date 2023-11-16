@@ -79,5 +79,5 @@ while cap.isOpened() and not stop_button_pressed:
 
 
 cap.release()
-cv2.destroyAllWindows()
+# cv2.destroyAllWindows()
 
