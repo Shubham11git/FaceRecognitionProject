@@ -4,7 +4,7 @@ from streamlit_webrtc import webrtc_streamer, VideoProcessorBase
 import face_recognition
 import cv2
 import numpy as np
-import streamlit as st
+
 import os
 import av
 
@@ -13,8 +13,8 @@ import av
 class VideoProcessor(VideoProcessorBase):
     def __init__(self):
         # Define any initialization code here
-        
-            pass
+        # self.i = 0
+        pass
     
     
     def recv(self, frame):
@@ -33,6 +33,7 @@ class VideoProcessor(VideoProcessorBase):
 
         img = frame.to_ndarray(format='bgr24')
 
+        
         small_frame = cv2.resize(img, (0, 0), fx=0.25, fy=0.25)
         rgb_small_frame = cv2.cvtColor(small_frame, cv2.COLOR_BGR2RGB)
 
@@ -74,7 +75,7 @@ def main():
 
     
 
-    st.title("Webcam with Streamlit WebRTC")
+    st.title("Face Recognition")
 
         # Create a WebRTC component with the VideoTransformer class
     webrtc_ctx = webrtc_streamer(
@@ -86,9 +87,5 @@ def main():
         }
         )
 
-    # Display the webcam feed
-    # if webrtc_ctx.video_processor:
-    #     st.video(webrtc_ctx.video_processor)
-
-# if __name__ == "__main__":
+   
 main()
