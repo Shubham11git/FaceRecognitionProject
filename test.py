@@ -87,8 +87,8 @@ def main():
         )
 
     # Display the webcam feed
-    if webrtc_ctx.video_processor:
-        st.video(webrtc_ctx.video_processor)
+    # if webrtc_ctx.video_processor:
+    #     st.video(webrtc_ctx.video_processor)
 
 # if __name__ == "__main__":
 main()
