@@ -19,7 +19,6 @@ class VideoProcessor(VideoProcessorBase):
     
     def recv(self, frame):
         # Process the frame (e.g., apply filters, perform analysis)
-        process_frame = False
 
         known_face_encodings = []
         known_face_names = []
@@ -33,30 +32,30 @@ class VideoProcessor(VideoProcessorBase):
             known_face_encodings.append(image_encoding)
             known_face_names.append(image_name)
 
-        if process_frame:
-            img = frame.to_ndarray(format='bgr24')
+    
+        img = frame.to_ndarray(format='bgr24')
 
-            small_frame = cv2.resize(img, (0, 0), fx=0.25, fy=0.25)
-            rgb_small_frame = cv2.cvtColor(small_frame, cv2.COLOR_BGR2RGB)
+        small_frame = cv2.resize(img, (0, 0), fx=0.25, fy=0.25)
+        rgb_small_frame = cv2.cvtColor(small_frame, cv2.COLOR_BGR2RGB)
+
+    
+        face_location = face_recognition.face_locations(rgb_small_frame)
+        rgb_frame_encoding = face_recognition.face_encodings(rgb_small_frame, face_location)
+    
+        name_list = []
+
+        for face_encoding in rgb_frame_encoding:
+            match = face_recognition.compare_faces(known_face_encodings, face_encoding)
+            
+            name = 'Unknown'
+
+            if True in match:
+                index = match.index(True)
+                name = known_face_names[index]
+
+            name_list.append(name)
 
         
-            face_location = face_recognition.face_locations(rgb_small_frame)
-            rgb_frame_encoding = face_recognition.face_encodings(rgb_small_frame, face_location)
-        
-            name_list = []
-
-            for face_encoding in rgb_frame_encoding:
-                match = face_recognition.compare_faces(known_face_encodings, face_encoding)
-                
-                name = 'Unknown'
-
-                if True in match:
-                    index = match.index(True)
-                    name = known_face_names[index]
-
-                name_list.append(name)
-
-            process_frame = True
 
         for (top, right, bottom, left), name in zip(face_location, name_list):
             top *= 4
