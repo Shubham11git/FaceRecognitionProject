@@ -86,6 +86,7 @@ def main():
             key="sample",
             video_processor_factory=VideoProcessor,
             async_processing=True,
+            sendback_audio=False,
             rtc_configuration={  # Add this config
             "iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]
         }
