@@ -19,6 +19,7 @@ class VideoProcessor(VideoProcessorBase):
     
     def recv(self, frame):
         # Process the frame (e.g., apply filters, perform analysis)
+
         known_face_encodings = []
         known_face_names = []
 
@@ -31,9 +32,9 @@ class VideoProcessor(VideoProcessorBase):
             known_face_encodings.append(image_encoding)
             known_face_names.append(image_name)
 
+    
         img = frame.to_ndarray(format='bgr24')
 
-        
         small_frame = cv2.resize(img, (0, 0), fx=0.25, fy=0.25)
         rgb_small_frame = cv2.cvtColor(small_frame, cv2.COLOR_BGR2RGB)
 
@@ -53,6 +54,8 @@ class VideoProcessor(VideoProcessorBase):
                 name = known_face_names[index]
 
             name_list.append(name)
+
+        
 
         for (top, right, bottom, left), name in zip(face_location, name_list):
             top *= 4
@@ -82,6 +85,7 @@ def main():
             key="sample",
             video_processor_factory=VideoProcessor,
             async_processing=True,
+            sendback_audio=False,
             rtc_configuration={  # Add this config
             "iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]
         }
