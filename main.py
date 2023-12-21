@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 import streamlit as st
 import os
-import tempfile
+
 
 st.title('Face Recognition')
 
