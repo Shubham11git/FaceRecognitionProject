@@ -1,7 +1,7 @@
 # Face Recognition Web Application
 This is a Face Recognition Web Application developed using Streamlit.
 
-This application used webcam of a device to detect the faces and match those faces with the faces available in the 'images' directory (included in the repository).
+This application uses webcam of a device to detect the faces and to match those faces with the faces available in the 'images' directory (included in this repository).
 
 **[face_recognition](https://github.com/ageitgey/face_recognition)** library has been used to detect the faces from webcam and match those faces with the available faces.
 
@@ -13,4 +13,4 @@ To run the app on local machine, local.py can be used. OpenCV, Numpy, face_recog
 
 To deploy the app on remote server, server.py has been used. For deploying the app on the remote server, streamlit_webrtc, streamlit, face_recognition, OpenCV, and Numpy must be installed on the remote server platform.
 
-Note: face_recognition library needs to be forked on your Github and then include that in requirements.txt file
+**Note**: face_recognition library needs to be forked on your Github and then include that in requirements.txt file
