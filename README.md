@@ -14,3 +14,5 @@ To run the app on local machine, local.py can be used. OpenCV, Numpy, face_recog
 To deploy the app on remote server, server.py has been used. For deploying the app on the remote server, streamlit_webrtc, streamlit, face_recognition, OpenCV, and Numpy must be installed on the remote server platform.
 
 **Note**: face_recognition library needs to be forked on your Github and then include that in requirements.txt file
+
+This app is live on [Here](https://shubhamkhobra-facerecognitionproject-server-vxzfrp.streamlit.app/) and it successfully recognizes faces of Barack Obama, Joe Biden and, Elon Musk. Images of these faces are stored in the 'images' directory.  
