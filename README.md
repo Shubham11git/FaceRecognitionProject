@@ -15,4 +15,4 @@ To deploy the app on remote server, server.py has been used. For deploying the a
 
 **Note**: face_recognition library needs to be forked on your Github and then include that in requirements.txt file
 
-This app is live [Here](https://shubhamkhobra-facerecognitionproject-server-vxzfrp.streamlit.app/) and it successfully recognizes faces of Barack Obama, Joe Biden and, Elon Musk. Images of these faces are stored in the 'images' directory.  
+This app is live [here](https://shubhamkhobra-facerecognitionproject-server-vxzfrp.streamlit.app/) and it accurately recognizes faces of Barack Obama, Joe Biden and, Elon Musk. Images of these faces are stored in the 'images' directory.  
