@@ -1,3 +1,5 @@
+# This code can be used to run the app on local machine only
+
 import face_recognition
 import cv2
 import numpy as np
