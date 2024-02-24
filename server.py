@@ -72,7 +72,7 @@ class VideoProcessor(VideoProcessorBase):
 def main():
     st.title("Face Recognition")
 
-    # Create a WebRTC component with the VideoTransformer class
+    # Create a WebRTC component with the VideoProcessor class
     webrtc_ctx = webrtc_streamer(
             key="sample",
             video_processor_factory=VideoProcessor,
