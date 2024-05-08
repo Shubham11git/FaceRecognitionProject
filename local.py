@@ -4,48 +4,34 @@ import face_recognition
 import cv2
 import numpy as np
 import streamlit as st
-import os
+from face_encodeings_names import *
 
 
 st.title('Face Recognition')
 
-known_face_encodings = [] # For storing encodings of the face images that
-                          # are known to us (Stored in the images directory)
+directory = "images"
 
-known_face_names = []     # For storing names of the known faces
+known_face_encodings = face_encodings(directory) 
 
-known_image_dir = 'images' # Directory, where all the known face images are stored with file name as the name of the person
-
-for file in os.listdir(known_image_dir):
-
-    image = face_recognition.load_image_file(known_image_dir + '/' + file)
-    image_encoding = face_recognition.face_encodings(image)[0]
-
-    image_name = file.split('.')[0]
-
-    known_face_encodings.append(image_encoding)
-    known_face_names.append(image_name)
+known_face_names = face_names(directory) 
 
 # Using the webcam of local device
 cap = cv2.VideoCapture(0)
 
-frame_placeholder = st.empty() # To place an empty frame in the web page
+frame_placeholder = st.empty() 
 stop_button_pressed = st.button('Stop') 
 
 process_frame = True
 
-# while loop has been used to continuously get frame from webcam and process it
 while cap.isOpened() and not stop_button_pressed:
-    ret, frame = cap.read() # To read each frame from webcam and store it in variable named 'frame'
+    ret, frame = cap.read() # To read each frame from webcam
 
-    # if statement has been used to process every other frame to make the code run faster
+    # For processing every other frame to make the code run faster
     if process_frame:
-        small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25) # Frame has been reduced in size to its 
-                                                                  # 25% to make processing faster 
+        small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25) # Frame has been reduced in size to its 25%
         rgb_small_frame = cv2.cvtColor(small_frame, cv2.COLOR_BGR2RGB) # Converting frame to  RGB, because face_recognition library 
                                                                        # uses RGB frame and OpenCV creates BGR frame by defaul
 
-        
         face_location = face_recognition.face_locations(rgb_small_frame) # To draw rectangle on face
         rgb_frame_encoding = face_recognition.face_encodings(rgb_small_frame, face_location)
     
