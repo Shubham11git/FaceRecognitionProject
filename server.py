@@ -12,20 +12,6 @@ import av
 class VideoProcessor(VideoProcessorBase):
     def recv(self, frame):
 
-        # known_face_encodings = [] # For storing encodings of the face images that
-        #                           # are known to us (Stored in the images directory)
-        
-        # known_face_names = [] # For storing names of the known faces
-
-        # known_image_dir = 'images' # Directory, where all the known face images are stored with file name as the name of the person
-
-        # for file in os.listdir(known_image_dir):
-        #     image = face_recognition.load_image_file(known_image_dir + '/' + file)
-        #     image_encoding = face_recognition.face_encodings(image)[0]
-        #     image_name = file.split('.')[0]
-        #     known_face_encodings.append(image_encoding)
-        #     known_face_names.append(image_name)
-
         known_face_encodings = [] # For storing encodings of the face images that
                                   # are known to us (Stored in the images directory)
         
