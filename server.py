@@ -82,6 +82,5 @@ def main():
             "iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]
             }
         )
-    st.write("Try with Barack Obama, Joe Biden and Elon Musk's images")
 
 main()
