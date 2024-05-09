@@ -5,8 +5,8 @@ from streamlit_webrtc import webrtc_streamer, VideoProcessorBase
 import face_recognition
 import cv2
 import numpy as np
+import os
 import av
-from face_encodeings_names import *
 
 
 class VideoProcessor(VideoProcessorBase):
@@ -26,11 +26,19 @@ class VideoProcessor(VideoProcessorBase):
         #     known_face_encodings.append(image_encoding)
         #     known_face_names.append(image_name)
 
-        directory = "images"
+        known_face_encodings = [] # For storing encodings of the face images that
+                                  # are known to us (Stored in the images directory)
+        
+        known_face_names = [] # For storing names of the known faces
 
-        known_face_encodings = face_encodings(directory) 
+        known_image_dir = 'images' # Directory, where all the known face images are stored with file name as the name of the person
 
-        known_face_names = face_names(directory)
+        for file in os.listdir(known_image_dir):
+            image = face_recognition.load_image_file(known_image_dir + '/' + file)
+            image_encoding = face_recognition.face_encodings(image)[0]
+            image_name = file.split('.')[0]
+            known_face_encodings.append(image_encoding)
+            known_face_names.append(image_name)
 
         img = frame.to_ndarray(format='bgr24')
 
